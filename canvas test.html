@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple particles</title>
+    <meta name="author" content="https://mateuszbilicz.pl/">
+    <meta name="description" content="Simple particles animation">
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <script src="anim_particles.js"></script>
+    <!--<script src="anim_particles.min.js"></script>-->
+</head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        background-color:#ffffff;
+        overflow: hidden;
+        min-width: 100vw;
+        max-width: 100vw;
+        min-height: 100vh;
+        max-height: 100vh;
+    }
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+    #div1 {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    label[for='auto-clear'] {
+        color: #fff;
+        text-shadow: 0 0 4px rgba(0, 0, 0, .4);
+    }
+</style>
+<body>
+
+    <canvas></canvas>
+
+    <div id="div1">
+        <select aria-label="select theme">
+            <option value="config_1">Default</option>
+            <option value="config_2">Black & White</option>
+            <option value="config_3">Magma</option>
+        </select>
+        <button onclick="switchActivity()" id="activation">Pause</button>
+        <button onclick="clearParticles()">Clear</button>
+        <br>
+        <input type="checkbox" id="auto-clear">
+        <label for="auto-clear">Clear particles on configuration change</label>
+    </div>
+
+    <script>
+        // controls from website
+        let selectElement = document.querySelector('select'),
+            activationButton = document.getElementById('activation'),
+            autoClearCheckbox = document.getElementById('auto-clear');
+        selectElement.addEventListener('change', applyConfiguration);
+
+        function switchActivity() {
+            if (activationButton.innerText === 'Start') {
+                activationButton.innerText = 'Pause';
+                window.particles.startRender();
+            } else {
+                activationButton.innerText = 'Start';
+                window.particles.stopRender();
+            }
+        }
+
+        function clearParticles() {
+            particles.clear();
+        }
+
+        // theme changer
+        function applyConfiguration() {
+            let type = selectElement.value,
+                config;
+            switch(type) {
+                case 'config_2': config = {
+                    touchRange: 0,
+                    ctxBackgroundColor: '#000000',
+                    mainClr: '#ffffff',
+                    touchClr: '#ffffff',
+                    moveSpeed: 1,
+                    angSpeed: 30,
+                    maxConnections: 3,
+                    count: 180,
+                    connectionLength: 80,
+                    maxSize: 0.7,
+                    maxLife: 12
+                }; break;
+                case 'config_3': config = {
+                    touchRange: 30,
+                    ctxBackgroundColor: '#1c1c1c',
+                    mainClr: '#ff4f00',
+                    touchClr: '#ff0000',
+                    moveSpeed: 1.4,
+                    angSpeed: 20,
+                    maxConnections: 2,
+                    count: 240,
+                    connectionLength: 90,
+                    maxSize: 0.9,
+                    maxLife: 10
+                }; break;
+                default: config = {
+                    count: 300,
+                    ctxBackgroundColor: '#000000',
+                    mainClr: '#cccccc',
+                    touchRange: 100,
+                    touchClr: '#ff0000',
+                    moveSpeed: 2,
+                    angSpeed: 30,
+                    maxSize: 0.7,
+                    maxLife: 12,
+                    maxConnections: 3,
+                    connectionLength: 80
+                }; break;
+            }
+            if (window.particles) {
+                window.particles.applyConfig(config);
+                if (autoClearCheckbox.checked) {
+                    window.particles.clear();
+                }
+            }
+        }
+
+        // setup and start particles
+        (function() {
+            let canvas = document.querySelector('canvas'),
+                particleController = new fireParticles(canvas),
+                onResize = () => {
+                    particleController.resizeCanvas(window.innerWidth, window.innerHeight);
+                },
+                onMouseMove = (evt) => {
+                    particleController.setMouse(evt.clientX, evt.clientY);
+                };
+
+                // resize drawing area on start
+                onResize();
+
+                // add callbacks to resize drawing area and reaction for mouse move
+                window.addEventListener('resize', onResize);
+                document.addEventListener('mousemove', onMouseMove);
+                particleController.startRender();
+
+            // now we can access particleController in controllers from website outside this function
+            window.particles = particleController;
+        })();
+    </script>
+</body>
+</html>
