@@ -1,9 +1,9 @@
 # Simple particles animation
 ## Setup
 ### 1. Include library
-full version:
-`<script src="anim_particles.js"></script>`
-minified version:
+full version:<br>
+`<script src="anim_particles.js"></script>`<br>
+minified version:<br>
 `<script src="anim_particles.min.js"></script>`
 ### 2. Create particles
 ```javascript
@@ -32,7 +32,7 @@ minified version:
 We got working particles with default configuration!
 ## fireParticles class methods
 #### constructor(required canvas element, optional config object)
-Create particles from canvas element and optional config.
+Create particles from canvas element and optional config.<br>
 You can't change canvas element later.
 #### startRender()
 Start particles animation.
@@ -45,7 +45,7 @@ Clear canvas and all dots.
 #### applyConfig(config object)
 Set particles config, can be changed when particles animation is running.
 #### setMouse(number X, number Y)
-Set mouse X and Y position.
+Set mouse X and Y position.<br>
 You can set null and particles will not interact with mouse.
 #### resizeCanvas(number Width, number Height)
 Set canvas resolution in pixels.
@@ -66,14 +66,14 @@ config = {
     connectionLength: 80
 }
 ```
-`count: number` - particles count
-`ctxBackgroundColor: string` - canvas background color
-`mainClr: string` - main color
-`touchRange: number` - mouse range
-`touchClr: string` - color changed when particles interact with mouse
-`moveSpeed: number` - maximum particle movement speed
-`angSpeed: number` - maximum angle change speed
-`maxSize: number` - maximum particle size
-`maxLife: number` - maximum particle life value
-`maxConnections: number` - maximum number of connections between particles
+`count: number` - particles count<br>
+`ctxBackgroundColor: string` - canvas background color<br>
+`mainClr: string` - main color<br>
+`touchRange: number` - mouse range<br>
+`touchClr: string` - color changed when particles interact with mouse<br>
+`moveSpeed: number` - maximum particle movement speed<br>
+`angSpeed: number` - maximum angle change speed<br>
+`maxSize: number` - maximum particle size<br>
+`maxLife: number` - maximum particle life value<br>
+`maxConnections: number` - maximum number of connections between particles<br>
 `connectionLength: number` - maximum connection length between particles
